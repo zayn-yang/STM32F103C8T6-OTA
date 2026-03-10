@@ -6,12 +6,12 @@
 | 存储芯片       | 24C02（2KB I2C EEPROM）| 存储升级状态、版本信息   |
 | 通信模块       | USART（可扩展蓝牙/WiFi）| 接收固件数据             |
 
-### 3. 升级流程
+## 升级流程
 ```mermaid
 flowchart TD
     A["系统初始化"] --> B["读取24C02中OTA状态"]
     B --> C{检测升级指令/标志}
-    C -- 无升级需求 --> D["正常运行当前固件（机器人作业）"]
+    C -- 无升级需求 --> D["正常运行当前固件"]
     C -- 有升级需求 --> E["初始化W25Q64固件存储区"]
     E --> F["擦除W25Q64指定扇区"]
     F --> G["串口/无线接收固件分块数据"]
@@ -28,11 +28,4 @@ flowchart TD
     O --> P["读取24C02状态加载新固件"]
     P --> Q["新固件初始化+正常运行"]
     Q --> D
-    
-    %% 样式优化（可选，让流程图更易读）
-    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
-    classDef fail fill:#ffebee,stroke:#c62828,stroke-width:2px
-    classDef process fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    class A,B,D,E,F,G,J,O,P,Q process
-    class L,N success
-    class H,M fail
+
